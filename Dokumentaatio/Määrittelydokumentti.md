@@ -15,7 +15,7 @@ Ongelma, jota ratkaisen on satunnaisen luolaston generointi, jossa jokaiseen pai
 Ohjelma saa syötteeksi luolaston koon ja huoneiden määrän, mitä käytetään luolastoa generoidessa tekemään siitä käyttäjän toiveiden mukainen.
 
 
-**Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysit)**
+**Tavoitteena olevat aika- ja tilavaativuudet**
 
 Tavoite aikavaativuus: O(n^2)
 Tavoite tilavaativuus: O(n^2)
