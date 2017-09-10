@@ -2,7 +2,7 @@
 
 **Mitä algoritmeja ja tietorakenteita toteutat työssäsi**
 
-Toteutan työssäni BSP-puun (Binary Space Partitioning), jota käytän tilan jakamiseen erilaisiin suorakulmion muotoisiin palasiin. Luolaston huoneet sijoitan näiden palasten sisälle ja yhdistän huoneet käytävillä toisiinsa puurakennetta hyödyntäen.
+Toteutan työssäni BSP-puun (Binary Space Partitioning), jota käytän tilan jakamiseen erilaisiin suorakulmion muotoisiin palasiin. Luolaston huoneet sijoitan näiden palasten sisälle ja yhdistän huoneet käytävillä toisiinsa puurakennetta hyödyntäen. Luolaston generointi tapahtuu siis etukäteen.
 
 
 **Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet**
