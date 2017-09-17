@@ -1,4 +1,4 @@
-**Viikkoraportti 1**
+## Viikkoraportti 1
 
 Tutustuin ensimmäiseksi tarkemmin kaikkiin aiheisiin, jotka kiinnostivat minua, ja päädyin lopulta tekemään luolastogeneraattorin. Tutkin erilaisia luolastogenerointi-algoritmeja ja päädyin BSP-puuta hyödyntävään algoritmiin. Tämän jälkeen tein määrittelydokumentin ja lopuksi viikkoraportin.
 
