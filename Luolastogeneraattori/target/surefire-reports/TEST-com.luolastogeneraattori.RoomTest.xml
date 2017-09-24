@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="12" failures="0" name="com.luolastogeneraattori.LeafTest" time="0.009" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.luolastogeneraattori.RoomTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_102\jre\bin"/>
@@ -61,16 +61,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="splitEiJaaUudestaan" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="splitJakaaOikeinVaakasuunnassa" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="testCreateRooms" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="testRoom" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="testToString" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="splitJakaaOikein" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="testGetRoom" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="testCreateHallway" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="liianPieniLehtiEiJakaudu" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="testGetHallway" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="splitJakautuuOsiin" time="0"/>
-  <testcase classname="com.luolastogeneraattori.LeafTest" name="splitJakaaOikeinPystysuunnassa" time="0"/>
+  <testcase classname="com.luolastogeneraattori.RoomTest" name="testGetWidth" time="0"/>
+  <testcase classname="com.luolastogeneraattori.RoomTest" name="testGetX" time="0"/>
+  <testcase classname="com.luolastogeneraattori.RoomTest" name="testGetY" time="0"/>
+  <testcase classname="com.luolastogeneraattori.RoomTest" name="testGetHeight" time="0"/>
 </testsuite>

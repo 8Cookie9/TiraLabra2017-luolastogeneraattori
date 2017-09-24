@@ -3,7 +3,17 @@ package com.luolastogeneraattori;
 public class App {
 
     public static void main(String[] args) {
-//        BSP bsp=new BSP(0,0,20,20);
-//        bsp.split(0, 0, 3, 8);
+        Dungeon dungeon = new Dungeon(40,40);
+        dungeon.createLeafs();
+        dungeon.getLeafs().get(0).createRooms();
+        
+//        System.out.println("Leaf (x, y) : (x+width, y+height) :::: Room (x, y) : (x+width, y+height)");
+//        for(Leaf leaf:dungeon.getLeafs()){
+//            if(leaf.room()!=null){
+//                System.out.println("("+leaf.getX()+", "+leaf.getY()+") : ("+(leaf.getX()+leaf.getWidth())+", "+(leaf.getY()+leaf.getHeight())+")"+" :::: "+"("+leaf.room().getX()+", "+leaf.room().getY()+") : ("+(leaf.room().getX()+leaf.room().getWidth())+", "+(leaf.room().getY()+leaf.room().getHeight())+")");
+//            }
+//        }
+        
+        System.out.println(dungeon);
     }
 }

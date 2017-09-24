@@ -6,32 +6,32 @@ import static org.junit.Assert.*;
 
 public class LeafTest {
     
-    Leaf root;
+    private Leaf root;
     
     @Before
     public void setUp() {
-        root=new Leaf(0,0,40,40);
+        this.root=new Leaf(0,0,40,40);
     }
     
     @Test
     public void splitJakautuuOsiin(){
-        root.split();
-        assertTrue(root.left().getHeight()*root.left().getWidth()+root.right().getHeight()*root.right().getWidth()==root.getHeight()*root.getWidth());
+        this.root.split();
+        assertTrue(this.root.left().getHeight()*this.root.left().getWidth()+this.root.right().getHeight()*this.root.right().getWidth()==this.root.getHeight()*this.root.getWidth());
     }
     
     @Test
     public void splitEiJaaUudestaan(){
-        root.split();
-        assertFalse(root.split());
+        this.root.split();
+        assertFalse(this.root.split());
     }
     
     @Test
     public void splitJakaaOikein(){
-        root.split();
-        if(root.left().getWidth()<root.getWidth()){
-            assertTrue(root.right().getX()>root.getX());
+        this.root.split();
+        if(this.root.left().getWidth()<this.root.getWidth()){
+            assertTrue(this.root.right().getX()>this.root.getX());
         }else{
-            assertTrue(root.right().getY()>root.getY());
+            assertTrue(this.root.right().getY()>this.root.getY());
         }
     }
     
@@ -49,5 +49,77 @@ public class LeafTest {
         assertTrue(leaf.split());
         assertTrue(leaf.left().getWidth()<leaf.getWidth()||leaf.right().getWidth()<leaf.getWidth());
         
+    }
+    
+    @Test
+    public void liianPieniLehtiEiJakaudu(){
+        Leaf leaf1 = new Leaf(0,0,11,11);
+        assertFalse(leaf1.split());
+        Leaf leaf2 = new Leaf(0,0,12,12);
+        assertTrue(leaf2.split());
+    }
+    
+    @Test
+    public void testCreateRooms(){
+        this.root.createRooms();
+        assertTrue(this.root.room()!=null);
+        this.root = new Leaf(0, 0, 40, 40);
+        this.root.split();
+        this.root.createRooms();
+        assertTrue(this.root.room()==null);
+    }
+    
+    @Test
+    public void testCreateHallway(){
+        Room room1 = new Room(0, 0, 3, 3);
+        Room room2 = new Room(6, 0, 3, 3);
+        Room room3 = new Room(0, 6, 3, 3);
+        Room room4 = new Room(6, 6, 3, 3);
+        this.root.createHallway(room1, room2);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getHeight()==1);
+        this.root.createHallway(room1, room3);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getWidth()==1);
+        this.root.createHallway(room1, room4);
+        assertTrue(this.root.getHallway().size()==2&&this.root.getHallway().get(0).getHeight()==1&&this.root.getHallway().get(1).getWidth()==1);
+        this.root.createHallway(room2, room3);
+        assertTrue(this.root.getHallway().size()==2&&this.root.getHallway().get(0).getHeight()==1&&this.root.getHallway().get(1).getWidth()==1);
+        this.root.createHallway(room2, room4);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getWidth()==1);
+        this.root.createHallway(room3, room4);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getHeight()==1);
+        this.root.createHallway(room2, room1);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getHeight()==1);
+        this.root.createHallway(room3, room1);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getWidth()==1);
+        this.root.createHallway(room4, room1);
+        assertTrue(this.root.getHallway().size()==2&&this.root.getHallway().get(0).getHeight()==1&&this.root.getHallway().get(1).getWidth()==1);
+        this.root.createHallway(room3, room2);
+        assertTrue(this.root.getHallway().size()==2&&this.root.getHallway().get(0).getHeight()==1&&this.root.getHallway().get(1).getWidth()==1);
+        this.root.createHallway(room4, room2);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getWidth()==1);
+        this.root.createHallway(room4, room3);
+        assertTrue(this.root.getHallway().size()==1&&this.root.getHallway().get(0).getHeight()==1);
+    }
+    
+    @Test
+    public void testGetRoom(){
+        assertTrue(this.root.getRoom()==null);
+        this.root.createRooms();
+        assertTrue(this.root.getRoom()!=null);
+    }
+    
+    @Test
+    public void testRoom(){
+        assertTrue(this.root.room()==null);
+    }
+    
+    @Test
+    public void testGetHallway(){
+        assertTrue(this.root.getHallway()==null);
+    }
+    
+    @Test
+    public void testToString(){
+        assertTrue(this.root.toString().equals("0 - 40, 0 - 40"));
     }
 }
