@@ -3,7 +3,7 @@ package com.luolastogeneraattori;
 public class App {
 
     public static void main(String[] args) {
-        Dungeon dungeon = new Dungeon(40,40);
+        Dungeon dungeon = new Dungeon(100,100);
         dungeon.createLeafs();
         dungeon.getLeafs().get(0).createRooms();
         

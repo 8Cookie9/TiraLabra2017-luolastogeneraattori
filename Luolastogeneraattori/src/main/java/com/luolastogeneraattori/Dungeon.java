@@ -6,8 +6,9 @@ public class Dungeon {
     
     private final int width;
     private final int height;
-    private final int maxsize=20;
+    private final int maxsize;
     private ArrayList<Leaf> leafs;
+    private final Random random;
     
     /**
      * 
@@ -17,7 +18,9 @@ public class Dungeon {
     public Dungeon(int width, int height){
         this.width = width;
         this.height = height;
-        this.leafs=new ArrayList<>();
+        this.maxsize = Math.min(this.height, this.width)/4;
+        this.leafs = new ArrayList<>();
+        this.random = new Random();
     }
     
     public ArrayList<Leaf> getLeafs(){
@@ -37,7 +40,7 @@ public class Dungeon {
             for(int i=0;i<this.leafs.size();i++){
                 Leaf leaf=this.leafs.get(i);
                 if(leaf.left()==null && leaf.right()==null){
-                    if(leaf.getWidth() > this.maxsize || leaf.getHeight() > this.maxsize || Math.random() > 0.75){
+                    if(leaf.getWidth() > this.maxsize || leaf.getHeight() > this.maxsize || this.random.newBoolean(70)){
                         if(leaf.split()){
                             this.leafs.add(leaf.left());
                             this.leafs.add(leaf.right());
