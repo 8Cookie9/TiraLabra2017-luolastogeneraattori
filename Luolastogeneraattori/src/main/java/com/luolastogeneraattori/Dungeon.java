@@ -73,9 +73,9 @@ public class Dungeon {
                 }
             }
             if(leaf.getHallway()!=null){
-                for(Room r:leaf.getHallway()){
-                    for(int y=r.getY();y<(r.getY()+r.getHeight());y++){
-                        for(int x=r.getX();x<(r.getX()+r.getWidth());x++){
+                for(int i=0; i<leaf.getHallway().size(); i++){
+                    for(int y=leaf.getHallway().get(i).getY();y<(leaf.getHallway().get(i).getY()+leaf.getHallway().get(i).getHeight());y++){
+                        for(int x=leaf.getHallway().get(i).getX();x<(leaf.getHallway().get(i).getX()+leaf.getHallway().get(i).getWidth());x++){
                             dungeon[x][y]=0;
                         }
                     }

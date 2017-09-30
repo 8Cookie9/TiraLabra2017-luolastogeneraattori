@@ -1,7 +1,5 @@
 package com.luolastogeneraattori;
 
-import java.util.ArrayList;
-
 public class Leaf {
 
     private final int x;
@@ -11,7 +9,7 @@ public class Leaf {
     private Leaf left;
     private Leaf right;
     private Room room;
-    private ArrayList<Room> hallway;
+    private List<Room> hallway;
     private final int minSize=6;
     private final Random random;
     
@@ -57,7 +55,7 @@ public class Leaf {
         return right;
     }
 
-    public ArrayList<Room> getHallway() {
+    public List<Room> getHallway() {
         return hallway;
     }
     
@@ -178,7 +176,7 @@ public class Leaf {
      * @param rightRoom 
      */
     public void createHallway(Room leftRoom, Room rightRoom){
-        this.hallway = new ArrayList<>();
+        this.hallway = new List<Room>();
         int leftX=this.random.newInt(leftRoom.getX()+1, leftRoom.getX()+leftRoom.getWidth()-2);
         int leftY=this.random.newInt(leftRoom.getY()+1, leftRoom.getY()+leftRoom.getHeight()-2);
         int rightX=this.random.newInt(rightRoom.getX()+1, rightRoom.getX()+rightRoom.getWidth()-2);
