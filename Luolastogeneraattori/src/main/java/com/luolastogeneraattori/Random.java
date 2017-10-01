@@ -10,7 +10,7 @@ public class Random {
         return (int)Math.round(Math.random()*(max - min) + min);
     }
     
-    public boolean newBoolean(int chance){
+    public boolean newBoolean(double chance){
         return Math.random() <= (chance / 100);
     }
 }

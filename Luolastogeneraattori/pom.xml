@@ -39,11 +39,15 @@
                 <param>com.luolastogeneraattori.Leaf</param>
                 <param>com.luolastogeneraattori.Dungeon</param>
                 <param>com.luolastogeneraattori.Room</param>
+                <param>com.luolastogeneraattori.List</param>
+                <param>com.luolastogeneraattori.Random</param>
             </targetClasses>
             <targetTests>
                 <param>com.luolastogeneraattori.LeafTest</param>
                 <param>com.luolastogeneraattori.DungeonTest</param>
                 <param>com.luolastogeneraattori.RoomTest</param>
+                <param>com.luolastogeneraattori.ListTest</param>
+                <param>com.luolastogeneraattori.RandomTest</param>
             </targetTests>
         </configuration>
         </plugin>
