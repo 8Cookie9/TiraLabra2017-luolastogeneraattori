@@ -57,4 +57,5 @@ Testasin eri metodien suoritusnopeutta nanosekuntteina käyttäen Javan System.n
 createRooms() kesto riippuu createLeafs()-metodissa luotujen lehtien määrästä.
 
 ![Kuvaaja](https://image.prntscr.com/image/RWrZRWgyTwWUfZsqz4udsw.png)
+
 X-akselilla createLeafs() ja Y-akselilla createRooms().
