@@ -1,7 +1,7 @@
 Testasin eri metodien suoritusnopeutta nanosekuntteina käyttäen Javan System.nanoTime(). Testasin aluksi createLeafs() ja createRooms() metodien suoritusnopeutta erikokoisilla luolastoilla:
 
-10x10:
-createLeafs()
+### 10x10
+**createLeafs()**
 * 1004856
 * 921777
 * 974785
@@ -9,7 +9,7 @@ createLeafs()
 * 974020
 * Keskiarvo: 962857
 
-createRooms()
+**createRooms()**
 * 603475
 * 551231
 * 518101
@@ -18,8 +18,8 @@ createRooms()
 * Keskiarvo: 549600
 
 
-20x20
-* createLeafs()
+### 20x20
+**createLeafs()**
 * 1011737
 * 1062706
 * 1002817
@@ -27,7 +27,7 @@ createRooms()
 * 1104755
 * Keskiarvo: 1030085
 
-createRooms()
+**createRooms()**
 * 1047160
 * 1116224
 * 1026772
@@ -36,8 +36,8 @@ createRooms()
 * Keskiarvo: 1043694
 
 
-100x100
-createLeafs()
+### 100x100
+**createLeafs()**
 * 1606801
 * 2099163
 * 1736772
@@ -46,7 +46,7 @@ createLeafs()
 * Keskiarvo: 1785549
 
 
-createRooms()
+**createRooms()**
 * 2686328
 * 2646826
 * 2870326
