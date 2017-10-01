@@ -1,3 +1,5 @@
+## Testausdokumentti
+
 Testasin eri metodien suoritusnopeutta nanosekuntteina käyttäen Javan System.nanoTime(). Testasin aluksi createLeafs() ja createRooms() metodien suoritusnopeutta erikokoisilla luolastoilla:
 
 ### 10x10
