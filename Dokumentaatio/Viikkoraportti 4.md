@@ -1,6 +1,6 @@
 ## Viikkoraportti 4
 
-Korjasin bugin joka aiheutti käytävien katkeilua, tein Random luokan, joka sisältää kaksi satunnaisuuteen perustuvaa metodia, joista toinen antaa satunnaisen int-tyyppisen luvun annetulta väliltä ja toinen palauttaa annetun todennäköisyyden pohjalta joko true tai false. Toteutin myös tarvittavan tietorakenteen luokkana List, joka toimii listana olioita. Aloitin myös suorituskyvyn testauksen ja aloitin toteutus- ja testausdokumenttien kirjoittamisen.
+Korjasin bugin joka aiheutti käytävien katkeilua, tein Random luokan, joka sisältää kaksi satunnaisuuteen perustuvaa metodia, joista toinen antaa satunnaisen int-tyyppisen luvun annetulta väliltä ja toinen palauttaa annetun todennäköisyyden pohjalta joko true tai false. Toteutin myös tarvittavan tietorakenteen luokkana List, joka toimii listana olioita. Aloitin myös suorituskyvyn testauksen ja aloitin toteutus- ja testausdokumenttien kirjoittamisen. Tein myös vertaisarvioinnin.
 
 Opin lisää tällaisista tietorakenteista hakemalla tietoan internetistä ja tutkimalla Javan valmiita tietorakenteita.
 
