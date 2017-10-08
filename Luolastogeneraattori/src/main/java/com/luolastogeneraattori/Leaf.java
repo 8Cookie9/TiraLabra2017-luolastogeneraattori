@@ -10,7 +10,7 @@ public class Leaf {
     private Leaf right;
     private Room room;
     private List<Room> hallway;
-    private final int minSize=6;
+    private final int minSize;
     private final Random random;
     
     /**
@@ -20,8 +20,9 @@ public class Leaf {
      * @param y Lehden y-koordinaatti
      * @param width Lehden leveys
      * @param height Lehden korkeus
+     * @param minSize huoneiden minimikoko
      */
-    public Leaf(int x, int y, int width, int height){
+    public Leaf(int x, int y, int width, int height, int minSize){
         this.x=x;
         this.y=y;
         this.width=width;
@@ -29,6 +30,7 @@ public class Leaf {
         this.left=null;
         this.right=null;
         this.random=new Random();
+        this.minSize=minSize;
     }
 
     public int getX() {
@@ -79,11 +81,11 @@ public class Leaf {
         }
         int splitLocation=this.random.newInt(this.minSize, max);
         if(splitHorizontally){
-            this.left = new Leaf(this.x, this.y, this.width, splitLocation);
-            this.right = new Leaf(this.x, this.y+splitLocation, this.width, this.height-splitLocation);
+            this.left = new Leaf(this.x, this.y, this.width, splitLocation, this.minSize);
+            this.right = new Leaf(this.x, this.y+splitLocation, this.width, this.height-splitLocation, this.minSize);
         }else{
-            this.left = new Leaf(this.x, this.y, splitLocation, this.height);
-            this.right = new Leaf(this.x+splitLocation, this.y, this.width-splitLocation, this.height);
+            this.left = new Leaf(this.x, this.y, splitLocation, this.height, this.minSize);
+            this.right = new Leaf(this.x+splitLocation, this.y, this.width-splitLocation, this.height, this.minSize);
         }
         return true;
     }
@@ -118,6 +120,9 @@ public class Leaf {
         return max;
     }
     
+    /**
+     * Tekee huoneet tämän lehden jälkeläisiin
+     */
     public void createRooms(){
         if(this.left()!=null ||this.right()!=null){
             if(this.left()!=null){

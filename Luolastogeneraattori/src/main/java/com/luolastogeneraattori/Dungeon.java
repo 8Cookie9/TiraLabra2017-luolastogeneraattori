@@ -7,6 +7,7 @@ public class Dungeon {
     private final int width;
     private final int height;
     private final int maxsize;
+    private final int minsize;
     private ArrayList<Leaf> leafs;
     private final Random random;
     
@@ -19,8 +20,25 @@ public class Dungeon {
         this.width = width;
         this.height = height;
         this.maxsize = Math.min(this.height, this.width)/4;
+        this.minsize=6;
         this.leafs = new ArrayList<>();
         this.random = new Random();
+    }
+    
+    /**
+     * 
+     * @param width luolaston leveys
+     * @param height luolaston korkeus
+     * @param minSize huoneiden minimikoko
+     * @param maxSize lehtien maksimikoko
+     */
+    public Dungeon(int width, int height, int minSize, int maxSize){
+        this.width = width;
+        this.height = height;
+        this.maxsize = maxSize;
+        this.leafs = new ArrayList<>();
+        this.random = new Random();
+        this.minsize=minSize;
     }
     
     public ArrayList<Leaf> getLeafs(){
@@ -32,7 +50,7 @@ public class Dungeon {
      */
     public void createLeafs(){
         this.leafs = new ArrayList<>();
-        Leaf root = new Leaf(0, 0, this.width, this.height);
+        Leaf root = new Leaf(0, 0, this.width, this.height, this.minsize);
         this.leafs.add(root);
         boolean split = true;
         while(split){
