@@ -11,4 +11,4 @@ Seuraavaksi:
 * Yritän parantaa koodia
 * Teen dokumentaatiota
 
-!(luolasto)[https://image.prntscr.com/image/zfQBTgDxQ1KQsTso1bxrzg.png]
+![luolasto](https://image.prntscr.com/image/zfQBTgDxQ1KQsTso1bxrzg.png)
