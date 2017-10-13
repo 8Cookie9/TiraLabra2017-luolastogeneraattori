@@ -48,7 +48,7 @@ public class Dungeon {
     /**
      * Luo listan Leaf-olioita käyttäen Leaf:ssa sijaitsevaa split() metodia
      */
-    public void createLeafs(){
+    private void createLeafs(int splitChance, double splitDirection){
         this.leafs = new ArrayList<>();
         Leaf root = new Leaf(0, 0, this.width, this.height, this.minsize);
         this.leafs.add(root);
@@ -58,8 +58,8 @@ public class Dungeon {
             for(int i=0;i<this.leafs.size();i++){
                 Leaf leaf=this.leafs.get(i);
                 if(leaf.left()==null && leaf.right()==null){
-                    if(leaf.getWidth() > this.maxsize || leaf.getHeight() > this.maxsize || this.random.newBoolean(70)){
-                        if(leaf.split()){
+                    if(leaf.getWidth() > this.maxsize || leaf.getHeight() > this.maxsize || this.random.newBoolean(splitChance)){
+                        if(leaf.split(splitDirection)){
                             this.leafs.add(leaf.left());
                             this.leafs.add(leaf.right());
                             split = true;
@@ -68,6 +68,14 @@ public class Dungeon {
                 }
             }
         }
+    }
+    
+    /**
+     * Luo koko luolan
+     */
+    public void createDungeon(int splitChance, double splitDirection){
+        this.createLeafs(splitChance, splitDirection);
+        this.leafs.get(0).createRooms();
     }
     
     /**

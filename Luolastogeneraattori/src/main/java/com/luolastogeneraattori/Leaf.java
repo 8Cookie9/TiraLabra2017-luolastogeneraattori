@@ -68,25 +68,21 @@ public class Leaf {
     /**
      * Jakaa lehden kahteen osaan joko pysty- tai vaakasuunnassa riippuen lehden muodosta (tai satunnaisesti).
      * 
+     * @param splitDirection
      * @return Palauttaa onnistuiko jako
      */
-    public boolean split(){
+    public boolean split(double splitDirection){
         if(this.left!=null || this.right!=null){
             return false;
         }
-        boolean splitHorizontally=this.horizontalSplit();
+        boolean splitHorizontally=this.horizontalSplit(splitDirection);
         int max=this.max(splitHorizontally);
         if(max < this.minSize){
             return false;
         }
         int splitLocation=this.random.newInt(this.minSize, max);
-        if(splitHorizontally){
-            this.left = new Leaf(this.x, this.y, this.width, splitLocation, this.minSize);
-            this.right = new Leaf(this.x, this.y+splitLocation, this.width, this.height-splitLocation, this.minSize);
-        }else{
-            this.left = new Leaf(this.x, this.y, splitLocation, this.height, this.minSize);
-            this.right = new Leaf(this.x+splitLocation, this.y, this.width-splitLocation, this.height, this.minSize);
-        }
+        this.left = (splitHorizontally ? new Leaf(this.x, this.y, this.width, splitLocation, this.minSize) : new Leaf(this.x, this.y, splitLocation, this.height, this.minSize));
+        this.right = (splitHorizontally ? new Leaf(this.x, this.y+splitLocation, this.width, this.height-splitLocation, this.minSize) : new Leaf(this.x+splitLocation, this.y, this.width-splitLocation, this.height, this.minSize));
         return true;
     }
     
@@ -94,11 +90,11 @@ public class Leaf {
      * 
      * @return Jaetaanko lehti pysty- (false) vai vaakasuunnassa (true)
      */
-    private boolean horizontalSplit(){
+    private boolean horizontalSplit(double splitDirection){
         boolean splitHorizontally=this.random.newBoolean(50);
-        if(this.width > this.height && this.width/this.height >= 1.3){
+        if(this.width > this.height && this.width/this.height >= splitDirection){
             splitHorizontally=false;
-        }else if(this.height > this.width && this.height/this.width >= 1.3){
+        }else if(this.height > this.width && this.height/this.width >= splitDirection){
             splitHorizontally=true;
         }
         return splitHorizontally;
@@ -181,54 +177,26 @@ public class Leaf {
      * @param rightRoom 
      */
     public void createHallway(Room leftRoom, Room rightRoom){
-        this.hallway = new List<Room>();
+        this.hallway = new List<>();
         int leftX=this.random.newInt(leftRoom.getX()+1, leftRoom.getX()+leftRoom.getWidth()-2);
         int leftY=this.random.newInt(leftRoom.getY()+1, leftRoom.getY()+leftRoom.getHeight()-2);
         int rightX=this.random.newInt(rightRoom.getX()+1, rightRoom.getX()+rightRoom.getWidth()-2);
         int rightY=this.random.newInt(rightRoom.getY()+1, rightRoom.getY()+rightRoom.getHeight()-2);
         int xDifference=rightX-leftX;
         int yDifference=rightY-leftY;
-        
+        boolean rnd=this.random.newBoolean(50);
         if(xDifference < 0){
-            if(yDifference < 0){
-                if(this.random.newBoolean(50)){
-                    this.hallway.add(new Room(rightX, leftY, Math.abs(xDifference), 1));
-                    this.hallway.add(new Room(rightX, rightY, 1, Math.abs(yDifference)));
-                }else{
-                    this.hallway.add(new Room(rightX, rightY, Math.abs(xDifference), 1));
-                    this.hallway.add(new Room(leftX, rightY, 1, Math.abs(yDifference)));
-                }
-            }else if(yDifference > 0){
-                if(this.random.newBoolean(50)){
-                    this.hallway.add(new Room(rightX, leftY, Math.abs(xDifference), 1));
-                    this.hallway.add(new Room(rightX, leftY, 1, Math.abs(yDifference)));
-                }else{
-                    this.hallway.add(new Room(rightX, rightY, Math.abs(xDifference)+1, 1));
-                    this.hallway.add(new Room(leftX, leftY, 1, Math.abs(yDifference)+1));
-                }
-            }else{
+            if(yDifference == 0){
                 this.hallway.add(new Room(rightX, rightY, Math.abs(xDifference), 1));
             }
+            this.hallway.add(new Room(rightX, (rnd ? leftY : rightY), (rnd ? Math.abs(xDifference) : Math.abs(xDifference)+1), 1));
+            this.hallway.add(new Room((rnd ? rightX : leftX), (yDifference<0 ? rightY : leftY), 1, Math.abs(yDifference)));
         }else if(xDifference > 0){
-            if(yDifference < 0){
-                if(this.random.newBoolean(50)){
-                    this.hallway.add(new Room(leftX, rightY, Math.abs(xDifference), 1));
-                    this.hallway.add(new Room(leftX, rightY, 1, Math.abs(yDifference)));
-                }else{
-                    this.hallway.add(new Room(leftX, leftY, Math.abs(xDifference)+1, 1));
-                    this.hallway.add(new Room(rightX, rightY, 1, Math.abs(yDifference)+1));
-                }
-            }else if(yDifference > 0){
-                if(this.random.newBoolean(50)){
-                    this.hallway.add(new Room(leftX, leftY, Math.abs(xDifference), 1));
-                    this.hallway.add(new Room(rightX, leftY, 1, Math.abs(yDifference)));
-                }else{
-                    this.hallway.add(new Room(leftX, rightY, Math.abs(xDifference), 1));
-                    this.hallway.add(new Room(leftX, leftY, 1, Math.abs(yDifference)));
-                }
-            }else{
+            if(yDifference == 0){
                 this.hallway.add(new Room(leftX, leftY, Math.abs(xDifference), 1));
             }
+            this.hallway.add(new Room(leftX, (yDifference<0 ? (rnd ? rightY : leftY) : (rnd ? leftY : rightY)), Math.abs(xDifference), 1));
+            this.hallway.add(new Room((yDifference<0 ? (rnd ? leftX : rightX) : (rnd ? rightX : leftX)), (yDifference<0 ? rightY : leftY), 1, Math.abs(yDifference)));
         }else{
             if(yDifference < 0){
                 this.hallway.add(new Room(rightX, rightY, 1, Math.abs(yDifference)));

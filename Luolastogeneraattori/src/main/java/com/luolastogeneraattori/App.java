@@ -69,8 +69,7 @@ public class App {
 //        System.out.println("CreateRooms: " + (aikaLopussa - aikaAlussa) + "ns.");
 //        
 //        System.out.println(dungeon);
-        dungeon.createLeafs();
-        dungeon.getLeafs().get(0).createRooms();
+        dungeon.createDungeon(60,1.2);
         GUI gui = new GUI(dungeon);
         SwingUtilities.invokeLater(gui);
     }
