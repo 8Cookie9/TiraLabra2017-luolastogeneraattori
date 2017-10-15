@@ -62,7 +62,7 @@ muuttamalla new Dungeon(100,100) kutsun parametrejä, esim. new Dungeon(30,30)
 
 Tästä nähdään että sivunpituuksien kasvaessa käytetty aika kasvaa suurinpiirtein samaa tahtia.
 
-##Aika- ja tilavaativuus:
+## Aika- ja tilavaativuus:
 
 Algoritmi jakaa tilan osiin (jotka ovat vähintään 4x4), joita on pahimmassa tapauksessa n/4, kun n on molempien sivujen pituus. Jakoja tapahtuu tällöin ((n/4)-1)((n/4)+1). Päästään esim. 16x16 kokoisessa luolassa neljään 4x4 palaan jakamalla osiin 15 kertaa. Yksi jako tapahtuu vakioajassa. Tämän jälkeen sijoitetaan huoneet pienimpiin osiin, jotka ovat muodostuneen puun lehtiä, eli n/4 huonetta. Yhden huoneen sijoittaminen tapahtuu vakioajassa. Huoneita sijoitetaan pahimmissa tapauksessa siis n/4. Käytävät tehdään yhtä monta kertaaa kuin osia, jotka eivät sisällä huonetta, eli ((n/4)-1)((n/4)+1)-(n/4). Käytävän tekeminen tapahtuu myös vakioajassa.
 
