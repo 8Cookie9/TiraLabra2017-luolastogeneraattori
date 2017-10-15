@@ -12,7 +12,7 @@ Ongelma, jota ratkaisen on satunnaisen luolaston generointi, jossa jokaiseen pai
 
 **Mitä syötteitä ohjelma saa ja miten näitä käytetään**
 
-Ohjelma saa syötteeksi luolaston koon ja huoneiden määrän, mitä käytetään luolastoa generoidessa tekemään siitä käyttäjän toiveiden mukainen.
+Ohjelma saa syötteeksi luolaston koon ~~ja huoneiden määrän~~, mitä käytetään luolastoa generoidessa tekemään siitä käyttäjän toiveiden mukainen.
 
 
 **Tavoitteena olevat aika- ja tilavaativuudet**
