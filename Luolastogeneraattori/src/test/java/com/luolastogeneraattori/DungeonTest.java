@@ -13,29 +13,29 @@ public class DungeonTest {
     }
 
     @Test
-    public void testGetLeafs() {
-        assertTrue(this.dungeon.getLeafs().isEmpty());
+    public void testGetParts() {
+        assertTrue(this.dungeon.getParts().size()==0);
     }
 
     @Test
-    public void createLeafsLuoLehtiä() {
-        this.dungeon.createLeafs();
-        assertFalse(this.dungeon.getLeafs().isEmpty());
+    public void createPartsLuoOsia() {
+        this.dungeon.createDungeon();
+        assertFalse(this.dungeon.getParts().size()==0);
     }
     
     @Test
-    public void createLeafsJuurenaKokoLuola() {
-        this.dungeon.createLeafs();
-        assertTrue(this.dungeon.getLeafs().get(0).getX()==0);
-        assertTrue(this.dungeon.getLeafs().get(0).getY()==0);
-        assertTrue(this.dungeon.getLeafs().get(0).getWidth()==20);
-        assertTrue(this.dungeon.getLeafs().get(0).getHeight()==20);
+    public void createPartsJuurenaKokoLuola() {
+        this.dungeon.createDungeon();
+        assertTrue(this.dungeon.getParts().get(0).getX()==0);
+        assertTrue(this.dungeon.getParts().get(0).getY()==0);
+        assertTrue(this.dungeon.getParts().get(0).getWidth()==20);
+        assertTrue(this.dungeon.getParts().get(0).getHeight()==20);
     }
     
     @Test
-    public void createLeafsOikeaMaaraLehtia(){
-        this.dungeon.createLeafs();
-        assertTrue(this.dungeon.getLeafs().size()%2==1);
+    public void createPartsOikeaMaaraLehtia(){
+        this.dungeon.createDungeon();
+        assertTrue(this.dungeon.getParts().size()%2==1);
     }
     
     @Test
@@ -50,8 +50,7 @@ public class DungeonTest {
         }
         assertTrue(b);
         Dungeon d = new Dungeon(40,40);
-        d.createLeafs();
-        d.getLeafs().get(0).createRooms();
+        d.createDungeon();
         b = false;
         for(int i=0;i<40;i++){
             for(int i2=0;i2<40;i2++){

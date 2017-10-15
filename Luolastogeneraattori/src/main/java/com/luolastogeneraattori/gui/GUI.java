@@ -1,54 +1,120 @@
 package com.luolastogeneraattori.gui;
 
 import com.luolastogeneraattori.Dungeon;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.beans.PropertyChangeListener;
+import javafx.scene.input.MouseEvent;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 public class GUI implements Runnable{
     private JFrame frame;
-    private Dungeon dungeon;
+    private DungeonGUI dGUI;
     
-    public GUI(Dungeon dungeon){
-        this.dungeon = dungeon;
+    public GUI(){
+        this.dGUI=new DungeonGUI(new Dungeon(50,50));
     }
 
     @Override
     public void run() {
-        frame = new JFrame("Dungeon");
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        if(this.dungeon.getWidth()>(int) (screenSize.getWidth()/10) && this.dungeon.getHeight()>(int) (screenSize.getHeight()/10)){
-//            int i=(Math.min((int) screenSize.getWidth(), (int) screenSize.getHeight())*2/3)/Math.max(this.dungeon.getWidth(), this.dungeon.getHeight());
-//            frame.setPreferredSize(new Dimension((this.dungeon.getWidth()*i), (this.dungeon.getHeight()*i)));
-//        }else{
-//            frame.setPreferredSize(new Dimension((this.dungeon.getWidth()*20), (this.dungeon.getHeight()*20)));
-//        }
+        frame = new JFrame("Dungeon Generator");
+        frame.setPreferredSize(new Dimension(600 ,300));
         frame.setResizable(false);
         frame.setAlwaysOnTop(true);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        createComponents(frame.getContentPane());
+        createComponentsMain(frame.getContentPane());
 
         frame.pack();
         frame.setVisible(true);
     }
     
-    private void createComponents(Container container) {
-        GridLayout layout = new GridLayout(this.dungeon.getWidth(),this.dungeon.getHeight());
+    private void createComponentsMain(Container container){
+        GridLayout layout = new GridLayout(6,3);
         container.setLayout(layout);
-        
-        int[][] d = this.dungeon.getDungeon();
-        
-        for(int x=0; x<this.dungeon.getWidth(); x++){
-            for(int y=0; y<this.dungeon.getHeight(); y++){
-                container.add(new Rectangle(10,10,d[x][y]==1));
+        JTextField width = new JTextField("100");
+        JTextField height = new JTextField("100");
+        JTextField min = new JTextField("6");
+        JTextField max = new JTextField("30");
+        JTextField splitChance = new JTextField("70");
+        JTextField splitDirection = new JTextField("1.3");
+        JButton generate = new JButton("Generate");
+        generate.addActionListener((ActionEvent e) -> {
+            if(this.validate(width.getText(), height.getText(), min.getText(), max.getText(), splitChance.getText(), splitDirection.getText())){
+                Dungeon d=new Dungeon(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),Integer.parseInt(min.getText()),Integer.parseInt(max.getText()),Integer.parseInt(splitChance.getText()),Double.parseDouble(splitDirection.getText()));
+                d.createDungeon();
+                SwingUtilities.invokeLater(new DungeonGUI(d));
+            }else{
+                JOptionPane.showMessageDialog(container, "Invalid values");
             }
-        }
+        });
+        container.add(new JLabel("Width"));
+        container.add(new JLabel("Height"));
+        container.add(new JLabel("Chance to split (%)"));
         
+        container.add(width);
+        container.add(height);
+        container.add(splitChance);
+        
+        container.add(new JLabel("Minimum room size"));
+        container.add(new JLabel("Maximum room size"));
+        container.add(new JLabel("Randomness of the split direction"));
+        
+        container.add(min);
+        container.add(max);
+        container.add(splitDirection);
+        
+        container.add(new JLabel());
+        container.add(new JLabel());
+        container.add(new JLabel());
+        
+        container.add(new JLabel());
+        container.add(generate);
+        container.add(new JLabel());
+    }
+    
+    private boolean validate(String width, String height, String minSize, String maxSize, String splitChance, String splitDirection){
+        try{
+            int w = Integer.parseInt(width);
+            int h = Integer.parseInt(height);
+            int min = Integer.parseInt(minSize);
+            int max = Integer.parseInt(maxSize);
+            int chance = Integer.parseInt(splitChance);
+            double dir = Double.parseDouble(splitDirection);
+            if(w<30 || w>200){
+                return false;
+            }else if(h<30 || h>200){
+                return false;
+            }else if(min<3){
+                return false;
+            }else if(max<min){
+                return false;
+            }else if(chance<0 || chance>100){
+                return false;
+            }else if(dir<0){
+                return false;
+            }
+        }catch(Exception e){
+            return false;
+        }
+        return true;
     }
 }

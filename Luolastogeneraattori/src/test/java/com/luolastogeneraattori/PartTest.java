@@ -4,13 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class LeafTest {
+public class PartTest {
     
-    private Leaf root;
+    private Part root;
     
     @Before
     public void setUp() {
-        this.root=new Leaf(0,0,40,40,6);
+        this.root=new Part(0,0,40,40,6);
     }
     
     @Test
@@ -37,7 +37,7 @@ public class LeafTest {
     
     @Test
     public void splitJakaaOikeinVaakasuunnassa(){
-        Leaf leaf = new Leaf(0,0,20,40,6);
+        Part leaf = new Part(0,0,20,40,6);
         assertTrue(leaf.split(1.3));
         assertTrue(leaf.left().getHeight()<leaf.getHeight()||leaf.right().getHeight()<leaf.getHeight());
         
@@ -45,17 +45,17 @@ public class LeafTest {
     
     @Test
     public void splitJakaaOikeinPystysuunnassa(){
-        Leaf leaf = new Leaf(0,0,40,20,6);
+        Part leaf = new Part(0,0,40,20,6);
         assertTrue(leaf.split(1.3));
         assertTrue(leaf.left().getWidth()<leaf.getWidth()||leaf.right().getWidth()<leaf.getWidth());
         
     }
     
     @Test
-    public void liianPieniLehtiEiJakaudu(){
-        Leaf leaf1 = new Leaf(0,0,11,11,6);
+    public void liianPieniOsaEiJakaudu(){
+        Part leaf1 = new Part(0,0,11,11,6);
         assertFalse(leaf1.split(1.3));
-        Leaf leaf2 = new Leaf(0,0,12,12,6);
+        Part leaf2 = new Part(0,0,12,12,6);
         assertTrue(leaf2.split(1.3));
     }
     
@@ -63,7 +63,7 @@ public class LeafTest {
     public void testCreateRooms(){
         this.root.createRooms();
         assertTrue(this.root.room()!=null);
-        this.root = new Leaf(0, 0, 40, 40,6);
+        this.root = new Part(0, 0, 40, 40,6);
         this.root.split(1.3);
         this.root.createRooms();
         assertTrue(this.root.room()==null);

@@ -1,20 +1,20 @@
 package com.luolastogeneraattori;
 
-public class Leaf {
+public class Part {
 
     private final int x;
     private final int y;
     private final int height;
     private final int width;
-    private Leaf left;
-    private Leaf right;
+    private Part left;
+    private Part right;
     private Room room;
     private List<Room> hallway;
     private final int minSize;
     private final Random random;
     
     /**
-     * Lehti on suorakulmio, jonka vasen alakulma on kohdassa (x, y) ja oikea yläkulma kohdasa (x+width, y+height)
+     * Part (osa) on suorakulmio, jonka vasen alakulma on kohdassa (x, y) ja oikea yläkulma kohdasa (x+width, y+height)
      * 
      * @param x Lehden x-koordinaatti
      * @param y Lehden y-koordinaatti
@@ -22,7 +22,7 @@ public class Leaf {
      * @param height Lehden korkeus
      * @param minSize huoneiden minimikoko
      */
-    public Leaf(int x, int y, int width, int height, int minSize){
+    public Part(int x, int y, int width, int height, int minSize){
         this.x=x;
         this.y=y;
         this.width=width;
@@ -49,11 +49,11 @@ public class Leaf {
         return width;
     }
 
-    public Leaf left() {
+    public Part left() {
         return left;
     }
 
-    public Leaf right() {
+    public Part right() {
         return right;
     }
 
@@ -66,7 +66,7 @@ public class Leaf {
     }
     
     /**
-     * Jakaa lehden kahteen osaan joko pysty- tai vaakasuunnassa riippuen lehden muodosta (tai satunnaisesti).
+     * Jakaa tämän osan alueen kahteen osaan joko pysty- tai vaakasuunnassa riippuen tämän osan muodosta (tai satunnaisesti).
      * 
      * @param splitDirection
      * @return Palauttaa onnistuiko jako
@@ -81,14 +81,14 @@ public class Leaf {
             return false;
         }
         int splitLocation=this.random.newInt(this.minSize, max);
-        this.left = (splitHorizontally ? new Leaf(this.x, this.y, this.width, splitLocation, this.minSize) : new Leaf(this.x, this.y, splitLocation, this.height, this.minSize));
-        this.right = (splitHorizontally ? new Leaf(this.x, this.y+splitLocation, this.width, this.height-splitLocation, this.minSize) : new Leaf(this.x+splitLocation, this.y, this.width-splitLocation, this.height, this.minSize));
+        this.left = (splitHorizontally ? new Part(this.x, this.y, this.width, splitLocation, this.minSize) : new Part(this.x, this.y, splitLocation, this.height, this.minSize));
+        this.right = (splitHorizontally ? new Part(this.x, this.y+splitLocation, this.width, this.height-splitLocation, this.minSize) : new Part(this.x+splitLocation, this.y, this.width-splitLocation, this.height, this.minSize));
         return true;
     }
     
     /**
      * 
-     * @return Jaetaanko lehti pysty- (false) vai vaakasuunnassa (true)
+     * @return Jaetaanko tämä osa pysty- (false) vai vaakasuunnassa (true)
      */
     private boolean horizontalSplit(double splitDirection){
         boolean splitHorizontally=this.random.newBoolean(50);
@@ -117,10 +117,10 @@ public class Leaf {
     }
     
     /**
-     * Tekee huoneet tämän lehden jälkeläisiin
+     * Tekee huoneet tämän osan jälkeläisiin
      */
     public void createRooms(){
-        if(this.left()!=null ||this.right()!=null){
+        if(this.left()!=null || this.right()!=null){
             if(this.left()!=null){
                 this.left().createRooms();
             }
@@ -141,7 +141,7 @@ public class Leaf {
 
     /**
      * 
-     * @return Palauttaa huoneen Room tästä lehdestä tai lähimmästä josta löytyy sellainen (palauttaa null jos huonetta ei löydy)
+     * @return Palauttaa huoneen Room tästä osasta tai lähimmästä josta löytyy sellainen (palauttaa null jos huonetta ei löydy)
      */
     public Room getRoom(){
         if(this.room != null){
@@ -185,18 +185,26 @@ public class Leaf {
         int xDifference=rightX-leftX;
         int yDifference=rightY-leftY;
         boolean rnd=this.random.newBoolean(50);
-        if(xDifference < 0){
-            if(yDifference == 0){
+         if(xDifference < 0){
+            if(yDifference < 0){
+                this.hallway.add(new Room(rightX, (rnd ? leftY : rightY), Math.abs(xDifference), 1));
+                this.hallway.add(new Room((rnd ? rightX : leftX), rightY, 1, Math.abs(yDifference)));
+            }else if(yDifference > 0){
+                this.hallway.add(new Room(rightX, (rnd ? leftY : rightY), (rnd ? Math.abs(xDifference) : (Math.abs(xDifference)+1)), 1));
+                this.hallway.add(new Room((rnd ? rightX : leftX), leftY, 1, Math.abs(yDifference)));
+            }else{
                 this.hallway.add(new Room(rightX, rightY, Math.abs(xDifference), 1));
             }
-            this.hallway.add(new Room(rightX, (rnd ? leftY : rightY), (rnd ? Math.abs(xDifference) : Math.abs(xDifference)+1), 1));
-            this.hallway.add(new Room((rnd ? rightX : leftX), (yDifference<0 ? rightY : leftY), 1, Math.abs(yDifference)));
         }else if(xDifference > 0){
-            if(yDifference == 0){
+            if(yDifference < 0){
+                this.hallway.add(new Room(leftX, (rnd ? rightY : leftY), (rnd ? Math.abs(xDifference) : (Math.abs(xDifference)+1)), 1));
+                this.hallway.add(new Room((rnd ? leftX : rightX), rightY, 1, Math.abs(yDifference)));
+            }else if(yDifference > 0){
+                this.hallway.add(new Room(leftX, (rnd ? leftY : rightY), Math.abs(xDifference), 1));
+                this.hallway.add(new Room((rnd ? rightX : leftX), leftY, 1, Math.abs(yDifference)));
+            }else{
                 this.hallway.add(new Room(leftX, leftY, Math.abs(xDifference), 1));
             }
-            this.hallway.add(new Room(leftX, (yDifference<0 ? (rnd ? rightY : leftY) : (rnd ? leftY : rightY)), Math.abs(xDifference), 1));
-            this.hallway.add(new Room((yDifference<0 ? (rnd ? leftX : rightX) : (rnd ? rightX : leftX)), (yDifference<0 ? rightY : leftY), 1, Math.abs(yDifference)));
         }else{
             if(yDifference < 0){
                 this.hallway.add(new Room(rightX, rightY, 1, Math.abs(yDifference)));

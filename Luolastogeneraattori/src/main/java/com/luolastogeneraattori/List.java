@@ -48,6 +48,19 @@ public class List<E> {
         }
     }
     
+    /**
+     * Poistaa list[i] jos i on kohta listassa ja pienentää listan kokoa size yhdellä
+     * @param i poistettava
+     */
+    public void delete(int i){
+        if(i>=0 && i<this.size){
+            for(int x=i;x<this.size-1;x++){
+                this.list[x]=this.list[x+1];
+            }
+            this.size--;
+        }
+    }
+    
     public int size(){
         return this.size;
     }
