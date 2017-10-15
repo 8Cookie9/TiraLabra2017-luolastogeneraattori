@@ -21,6 +21,8 @@ Algoritmin pahimman tapauksen tilavaativuus on osien määrä ((n/4)-1)((n/4)+1)
 
 
 ### Työn puutteet ja parannusehdotukset:
-
+Työstä puuttuu mahdollisuus valita huoneiden tarkka määrä.
 
 ### Lähteet:
+* http://www.roguebasin.com/index.php?title=Basic_BSP_Dungeon_generation
+* https://gamedevelopment.tutsplus.com/tutorials/how-to-use-bsp-trees-to-generate-game-maps--gamedev-12268 ftp://ftp.sgi.com/other/bspfaq/faq/bspfaq.html
