@@ -18,7 +18,7 @@ long ka=sum/10000;
 System.out.println("Keskiarvo: "+ka);
 ```
 
-muuttamalla new Dungeon(100,100) kutsun parametrejä, esim. new Dungeon(30,30)
+Muuttamalla new Dungeon(100,100) kutsun parametrejä, esim. new Dungeon(30,30) saatiin eri tulokset. Kahdella parametrillä luolasto käyttää leveyden ja korkeuden lisäksi 
 
 ### 30x30
 **createDungeon()**
@@ -68,3 +68,5 @@ muuttamalla new Dungeon(100,100) kutsun parametrejä, esim. new Dungeon(30,30)
 ![kuvaaja](https://i.imgur.com/Z1Yv1U5.png)
 
 Tästä nähdään että sivunpituuksien kasvaessa käytetty aika kasvaa suurinpiirtein samaa tahtia.
+
+Suorituskykytestauksen lisäksi ohjelmaa on testaattu JUnitia käyttäen.
