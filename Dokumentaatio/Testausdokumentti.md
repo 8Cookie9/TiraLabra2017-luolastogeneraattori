@@ -1,63 +1,71 @@
 ## Testausdokumentti
 
-Testasin eri metodien suoritusnopeutta nanosekuntteina käyttäen Javan System.nanoTime(). Testasin aluksi createLeafs() ja createRooms() metodien suoritusnopeutta erikokoisilla luolastoilla:
+Testasin eri metodien suoritusnopeutta nanosekuntteina käyttäen Javan System.nanoTime(). Testasin aluksi createDungeon() metodin (koko algoritmin) suoritusnopeutta erikokoisilla luolastoilla. Otin jokaisesta 3 keskiarvoa ylös kun metodin suorittaa 10000 kertaa.
 
-### 10x10
-**createLeafs()**
-* 1004856
-* 921777
-* 974785
-* 938851
-* 974020
-* Keskiarvo: 962857
+Totetus koodilla (luokassa App.java):
 
-**createRooms()**
-* 603475
-* 551231
-* 518101
-* 520140
-* 555053
-* Keskiarvo: 549600
+```java
+Dungeon dungeon = new Dungeon(100,100);
+long sum=0;
+for(int i=0;i<10000;i++){
+    long aikaAlussa = System.nanoTime();
+    dungeon.createDungeon();
+    long aikaLopussa = System.nanoTime();
+    sum+=(aikaLopussa - aikaAlussa);
+}
+long ka=sum/10000;
 
+System.out.println("Keskiarvo: "+ka);
+```
 
-### 20x20
-**createLeafs()**
-* 1011737
-* 1062706
-* 1002817
-* 968413
-* 1104755
-* Keskiarvo: 1030085
+muuttamalla new Dungeon(100,100) kutsun parametrejä, esim. new Dungeon(30,30)
 
-**createRooms()**
-* 1047160
-* 1116224
-* 1026772
-* 973255
-* 1055060
-* Keskiarvo: 1043694
+### 30x30
+**createDungeon()**
 
+* 12646ns
+* 12707ns
+* 12444ns
+≈ 13μs
+
+### 50x50
+**createDungeon()**
+
+* 27969ns
+* 27471ns
+* 28535ns
+≈28μs
 
 ### 100x100
-**createLeafs()**
-* 1606801
-* 2099163
-* 1736772
-* 1847885
-* 1637128
-* Keskiarvo: 1785549
+**createDungeon()**
 
+* 81214ns
+* 81558ns
+* 78857ns
+≈80μs
 
-**createRooms()**
-* 2686328
-* 2646826
-* 2870326
-* 3527063
-* 2939644
-* Keskiarvo: 2934037
+### 200x200
+**createDungeon()**
 
-createRooms() kesto riippuu createLeafs()-metodissa luotujen lehtien määrästä.
+* 196646ns
+* 196170ns
+* 198321ns
+≈200μs
 
-![Kuvaaja](https://image.prntscr.com/image/RWrZRWgyTwWUfZsqz4udsw.png)
+### 400x400
+**createDungeon()**
 
-X-akselilla createLeafs() ja Y-akselilla createRooms().
+* 436919ns
+* 434759ns
+* 427136ns
+≈430μs
+
+Tästä nähdään että sivunpituuksien kasvaessa käytetty aika kasvaa suurinpiirtein samaa tahtia.
+
+##Aika- ja tilavaativuus:
+
+Algoritmi jakaa tilan osiin (jotka ovat vähintään 4x4), joita on pahimmassa tapauksessa n/4, kun n on molempien sivujen pituus. Jakoja tapahtuu tällöin ((n/4)-1)((n/4)+1). Päästään esim. 16x16 kokoisessa luolassa neljään 4x4 palaan jakamalla osiin 15 kertaa. Yksi jako tapahtuu vakioajassa. Tämän jälkeen sijoitetaan huoneet pienimpiin osiin, jotka ovat muodostuneen puun lehtiä, eli n/4 huonetta. Yhden huoneen sijoittaminen tapahtuu vakioajassa. Huoneita sijoitetaan pahimmissa tapauksessa siis n/4. Käytävät tehdään yhtä monta kertaaa kuin osia, jotka eivät sisällä huonetta, eli ((n/4)-1)((n/4)+1)-(n/4). Käytävän tekeminen tapahtuu myös vakioajassa.
+
+Tästä saadaan pahimman tapauksen aikavaativuudeksi (jako)+(huoneiden sijoitus)+(käytävien sijoitus)=((n/4)-1)((n/4)+1)+(n/4)+(((n/4)-1)((n/4)+1)-(n/4))=2((n/4)-1)((n/4)+1). Pahimman tapauksen aikavaativuus on siis luokkaa O(n^2), mihin alussa pyrinkin.
+
+Algoritmin pahimman tapauksen tilavaativuus on osien määrä ((n/4)-1)((n/4)+1), huoneiden määrä n/4 ja käytäviin tarvittavien neliskulmioiden määrä 2(((n/4)-1)((n/4)+1)-(n/4)). Eli ((n/4)-1)((n/4)+1)+(n/4)+2(((n/4)-1)((n/4)+1)-(n/4))=3((n/4)-1)((n/4)+1)-(n/4). Pahimman tapauksen tilavaativuuskin on siis luokkaa O(n^2), mihin alussa pyrinkin.
