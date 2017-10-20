@@ -67,8 +67,7 @@ public class Part {
     
     /**
      * Jakaa tämän osan alueen kahteen osaan joko pysty- tai vaakasuunnassa riippuen tämän osan muodosta (tai satunnaisesti).
-     * 
-     * @param splitDirection
+     * @param splitDirection annetaan metodille horizontalSplit()
      * @return Palauttaa onnistuiko jako
      */
     public boolean split(double splitDirection){
@@ -87,7 +86,8 @@ public class Part {
     }
     
     /**
-     * 
+     * Jaon suunta on määrätty, jos tämä osa on splitDirectio-kertaa korkeampi kuin leveä,
+     * tai leveämpi kuin korkea.
      * @return Jaetaanko tämä osa pysty- (false) vai vaakasuunnassa (true)
      */
     private boolean horizontalSplit(double splitDirection){
@@ -117,7 +117,8 @@ public class Part {
     }
     
     /**
-     * Tekee huoneet tämän osan jälkeläisiin
+     * Tekee huoneet tämän osan jälkeläisiin, joilla ei ole jälkeläisiä
+     * (puun lehtiin)
      */
     public void createRooms(){
         if(this.left()!=null || this.right()!=null){
@@ -173,6 +174,8 @@ public class Part {
     
     /**
      * Tekee Room olioista koostuvan käytävän parametreinä annettujen huoneiden välille
+     * Metodi käy läpi erilaiset vaihtoehdot huoneiden sijainnista toisiinsa nähden
+     * ja tekee yhdestä tai kahdesta Room-oliosta muodostuvan käytävän niiden välille.
      * @param leftRoom
      * @param rightRoom 
      */

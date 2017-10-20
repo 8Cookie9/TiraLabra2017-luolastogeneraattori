@@ -53,7 +53,9 @@ public class Dungeon {
     }
     
     /**
-     * Luo listan Part-olioita käyttäen Part:ssa sijaitsevaa split() metodia
+     * Luo listan Part-olioita käyttäen Part:ssa sijaitsevaa split() metodia.
+     * partsSplit on lista, joka sisältää jaettavat osat (aluksi vain root).
+     * Tämän jälkeen kutsutaan metodia splitParts() niin kauan kuin se palauttaa true.
      * @param splitChance 
      * @param splitDirection 
      */
@@ -69,6 +71,16 @@ public class Dungeon {
         }
     }
     
+    /**
+     * Luo listan tempList, ja käy läpi jokaisen partsSplit listalla olevan osan. Jokaiselle osalle:
+     * se tallennetaan ensin parts-listaan, sitten katsotaan onko se suurempi kuin maksimikoko joko pysty- tai vaakasuunnassa,
+     * TAI antaako Random luokan metodi newBoolean(splitChance) arvon true (Tämä tapahtuu (splitChance)% todennäköisydellä).
+     * Jos jokin näistä ehdoista toteutuu, yritetään jakaa osa split() metodilla, ja tämän onnistuessa lisätään syntyvät lapset tempList-listaam.
+     * Ja asetetaan split arvoksi true. Lopuksi korvataan lista partsSplit listalla tempList ja palautetaan split.
+     * @param splitChance todennäköisyys joka määrittää yritetäänkö jakaa osa
+     * @param splitDirection annetaan Part-luokan metodille split
+     * @return onnistuiko jako
+     */
     private boolean splitParts(double splitChance, double splitDirection){
         boolean split = false;
         List<Part> tempList = new List<>();
@@ -88,7 +100,8 @@ public class Dungeon {
     }
     
     /**
-     * Luo koko luolan
+     * Luo koko luolan tekemällä ensin koko luolaston kokoisen root osan, ja kutsumalla ensin createParts()-metodia käyttäen root-osaa parametrinä.
+     * Lopuksi kutsutaan root-osan metodia createRooms(), joka luo huoneet ja käytävät.
      */
     public void createDungeon(){
         Part root = new Part(0, 0, this.width, this.height, this.minsize);
@@ -97,7 +110,7 @@ public class Dungeon {
     }
     
     /**
-     * 
+     * Alustaa taulukon arvolla 1 ja käy läpi kaikki huoneet ja käytävät ja muuttaa niiden alueiden arvoiksi 0.
      * @return palauttaa int[][] taulukon jonka arvot ovat 1 jos kohdassa on seinä tai 0 jos siinä ei ole seinää (0 = voi kulkea, 1 = ei voi kulkea)
      */
     public int[][] getDungeon(){
@@ -138,26 +151,5 @@ public class Dungeon {
 
     public int getHeight() {
         return height;
-    }
-    
-    /**
-     * 
-     * @return palauttaa tekstimuotoisen version luolasta getDungeon() metodin pohjalta, jossa 0 ==> "  " ja 1 ==> "||"
-     */
-    @Override
-    public String toString(){
-        String s="";
-        int[][] dungeon=this.getDungeon();
-        for(int y=0;y<this.height;y++){
-            for(int x=0;x<this.width;x++){
-                if(dungeon[x][y]==1){
-                    s+="||";
-                }else{
-                    s+="  ";
-                }
-            }
-            s+="\n";
-        }
-        return s;
     }
 }

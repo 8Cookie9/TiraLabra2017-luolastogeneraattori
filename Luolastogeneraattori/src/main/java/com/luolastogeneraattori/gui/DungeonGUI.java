@@ -22,6 +22,7 @@ public class DungeonGUI implements Runnable{
     public void run() {
         this.frame = new JFrame("Dungeon");
         frame.setPreferredSize(new Dimension(500 ,500));
+        frame.setMinimumSize(new Dimension(100, 100));
         this.frame.setAlwaysOnTop(true);
         
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

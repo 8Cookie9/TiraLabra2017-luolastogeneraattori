@@ -59,7 +59,7 @@ public class GUI implements Runnable{
         JButton generate = new JButton("Generate");
         generate.addActionListener((ActionEvent e) -> {
             if(this.validate(width.getText(), height.getText(), min.getText(), max.getText(), splitChance.getText(), splitDirection.getText())){
-                Dungeon d=new Dungeon(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),Integer.parseInt(min.getText()),Integer.parseInt(max.getText()),Integer.parseInt(splitChance.getText()),Double.parseDouble(splitDirection.getText()));
+                Dungeon d=new Dungeon(Integer.parseInt(width.getText()),Integer.parseInt(height.getText()),Integer.parseInt(min.getText())+2,Integer.parseInt(max.getText())+2,Integer.parseInt(splitChance.getText()),Double.parseDouble(splitDirection.getText()));
                 d.createDungeon();
                 SwingUtilities.invokeLater(new DungeonGUI(d));
             }else{
@@ -74,7 +74,7 @@ public class GUI implements Runnable{
         container.add(height);
         container.add(splitChance);
         
-        container.add(new JLabel("Minimum room size"));
+        container.add(new JLabel("Minimum room size (min. 2)"));
         container.add(new JLabel("Maximum room size"));
         container.add(new JLabel("Randomness of the split direction"));
         
@@ -95,15 +95,15 @@ public class GUI implements Runnable{
         try{
             int w = Integer.parseInt(width);
             int h = Integer.parseInt(height);
-            int min = Integer.parseInt(minSize);
-            int max = Integer.parseInt(maxSize);
+            int min = Integer.parseInt(minSize)+2;
+            int max = Integer.parseInt(maxSize)+2;
             int chance = Integer.parseInt(splitChance);
             double dir = Double.parseDouble(splitDirection);
-            if(w<30 || w>200){
+            if(w<10 || w>200){
                 return false;
-            }else if(h<30 || h>200){
+            }else if(h<10 || h>200){
                 return false;
-            }else if(min<3){
+            }else if(min<4){
                 return false;
             }else if(max<min){
                 return false;
