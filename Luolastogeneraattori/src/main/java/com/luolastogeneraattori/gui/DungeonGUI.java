@@ -21,7 +21,8 @@ public class DungeonGUI implements Runnable{
     @Override
     public void run() {
         this.frame = new JFrame("Dungeon");
-        frame.setPreferredSize(new Dimension(500 ,500));
+        int i=800/((this.dungeon.getWidth() + this.dungeon.getHeight())/2);
+        frame.setPreferredSize(new Dimension(this.dungeon.getWidth()*i ,this.dungeon.getHeight()*i));
         frame.setMinimumSize(new Dimension(100, 100));
         this.frame.setAlwaysOnTop(true);
         
@@ -34,13 +35,13 @@ public class DungeonGUI implements Runnable{
     }
     
     private void createComponents(Container container) {
-        GridLayout layout = new GridLayout(this.dungeon.getWidth(),this.dungeon.getHeight());
+        GridLayout layout = new GridLayout(this.dungeon.getHeight(),this.dungeon.getWidth());
         container.setLayout(layout);
         
         int[][] d = this.dungeon.getDungeon();
         
-        for(int x=0; x<this.dungeon.getWidth(); x++){
-            for(int y=0; y<this.dungeon.getHeight(); y++){
+        for(int y=0; y<this.dungeon.getHeight(); y++){
+            for(int x=0; x<this.dungeon.getWidth(); x++){
                 JLabel box = new JLabel();
                 if(d[x][y]==0){
                     box.setBorder(BorderFactory.createLineBorder(Color.white));

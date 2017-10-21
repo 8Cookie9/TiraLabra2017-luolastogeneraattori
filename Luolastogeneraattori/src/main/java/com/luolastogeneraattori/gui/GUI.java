@@ -99,15 +99,15 @@ public class GUI implements Runnable{
             int max = Integer.parseInt(maxSize)+2;
             int chance = Integer.parseInt(splitChance);
             double dir = Double.parseDouble(splitDirection);
-            if(w<10 || w>200){
+            if(w<10 || w>300){
                 return false;
-            }else if(h<10 || h>200){
+            }else if(h<10 || h>300){
                 return false;
             }else if(min<4){
                 return false;
             }else if(max<min){
                 return false;
-            }else if(chance<0 || chance>100){
+            }else if(chance<0){
                 return false;
             }else if(dir<0){
                 return false;
