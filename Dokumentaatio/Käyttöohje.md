@@ -1,6 +1,6 @@
 ## Käyttöohje
 
-Ohjelma suoritetaan suorittamalla .jar tiedosto.
+Ohjelma suoritetaan suorittamalla .jar tiedosto. Avautuvassa ikkunassa olevia arvoja voi muuttaa haluamikseen (ohjeita alla) ja painamalla "Generate" nappulaa, ohjelma generoi luolaston ja avaa sen uuteen ikkunaan. Koko ohjelma (sekä kaikki generoidut luolastot) sulkeutuu painamalla yläkulman rastia MISTÄ TAHANSA ikkunasta.
 
 Hyväksyttävät syöteet (ym. syötteistä):
 Width, Height: 
