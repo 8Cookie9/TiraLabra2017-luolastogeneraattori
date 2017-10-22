@@ -1,25 +1,14 @@
 package com.luolastogeneraattori.gui;
 
 import com.luolastogeneraattori.Dungeon;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.beans.PropertyChangeListener;
-import javafx.scene.input.MouseEvent;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -34,17 +23,18 @@ public class GUI implements Runnable{
 
     @Override
     public void run() {
-        frame = new JFrame("Dungeon Generator");
-        frame.setPreferredSize(new Dimension(600 ,300));
-        frame.setResizable(false);
-        frame.setAlwaysOnTop(true);
+        this.frame = new JFrame("Dungeon Generator");
+        this.frame.setPreferredSize(new Dimension(600 ,300));
+        this.frame.setLocation(800, 200);
+        this.frame.setResizable(false);
+        this.frame.setAlwaysOnTop(true);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        createComponentsMain(frame.getContentPane());
+        createComponentsMain(this.frame.getContentPane());
 
-        frame.pack();
-        frame.setVisible(true);
+        this.frame.pack();
+        this.frame.setVisible(true);
     }
     
     private void createComponentsMain(Container container){

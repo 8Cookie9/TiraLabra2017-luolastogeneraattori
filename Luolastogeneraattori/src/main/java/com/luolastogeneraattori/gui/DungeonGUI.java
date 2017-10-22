@@ -22,8 +22,8 @@ public class DungeonGUI implements Runnable{
     public void run() {
         this.frame = new JFrame("Dungeon");
         int i=800/((this.dungeon.getWidth() + this.dungeon.getHeight())/2);
-        frame.setPreferredSize(new Dimension(this.dungeon.getWidth()*i ,this.dungeon.getHeight()*i));
-        frame.setMinimumSize(new Dimension(100, 100));
+        this.frame.setPreferredSize(new Dimension(this.dungeon.getWidth()*i ,this.dungeon.getHeight()*i));
+        this.frame.setMinimumSize(new Dimension(100, 100));
         this.frame.setAlwaysOnTop(true);
         
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -31,7 +31,7 @@ public class DungeonGUI implements Runnable{
         createComponents(this.frame.getContentPane());
 
         this.frame.pack();
-        frame.setVisible(true);
+        this.frame.setVisible(true);
     }
     
     private void createComponents(Container container) {

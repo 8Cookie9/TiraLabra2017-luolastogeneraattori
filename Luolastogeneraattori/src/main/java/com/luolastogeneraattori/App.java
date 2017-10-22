@@ -1,7 +1,6 @@
 package com.luolastogeneraattori;
 
 import com.luolastogeneraattori.gui.GUI;
-import java.util.Scanner;
 import javax.swing.SwingUtilities;
 
 public class App {

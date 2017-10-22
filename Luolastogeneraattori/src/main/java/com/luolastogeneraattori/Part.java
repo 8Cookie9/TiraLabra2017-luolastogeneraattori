@@ -141,8 +141,8 @@ public class Part {
      * Luo huoneen tähän osaan, huone ei saa koskea reunoja.
      */
     private void createRoom(){
-        int roomWidth=this.random.newInt(this.minSize, this.width-2);
-        int roomHeight=this.random.newInt(this.minSize, this.height-2);
+        int roomWidth=this.random.newInt(this.minSize-2, this.width-2);
+        int roomHeight=this.random.newInt(this.minSize-2, this.height-2);
         int roomX=this.x+this.random.newInt(1, this.width-roomWidth-1);
         int roomY=this.y+this.random.newInt(1, this.height-roomHeight-1);
         this.room=new Room(roomX, roomY, roomWidth, roomHeight);
@@ -192,6 +192,7 @@ public class Part {
         int leftY=this.random.newInt(leftRoom.getY()+1, leftRoom.getY()+leftRoom.getHeight()-2);
         int rightX=this.random.newInt(rightRoom.getX()+1, rightRoom.getX()+rightRoom.getWidth()-2);
         int rightY=this.random.newInt(rightRoom.getY()+1, rightRoom.getY()+rightRoom.getHeight()-2);
+        this.hallway=this.getHallways(leftX, leftY, rightX, rightY);
         
     }
     
