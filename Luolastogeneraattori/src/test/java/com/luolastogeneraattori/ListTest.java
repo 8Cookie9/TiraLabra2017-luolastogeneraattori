@@ -34,4 +34,13 @@ public class ListTest {
         this.listInt.add(123);
         assertNotNull(this.listInt.get(0));
     }  
+    
+    @Test
+    public void testDelete(){
+        this.listInt.add(1);
+        this.listInt.add(2);
+        this.listInt.delete(0);
+        assertTrue(this.listInt.size()==1);
+        assertTrue(this.listInt.get(0)==2);
+    }
 }

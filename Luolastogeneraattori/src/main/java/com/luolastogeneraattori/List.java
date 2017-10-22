@@ -6,15 +6,11 @@ public class List<E> {
     private Object[] list;
     private int size;
     private int currentMaxSize;
+    
     public List(){
         this.list = new Object[this.initialValue];
         this.size = 0;
         this.currentMaxSize = this.initialValue;
-    }
-    public List(int init){
-        this.list = new Object[init];
-        this.size = 0;
-        this.currentMaxSize = init;
     }
     
     /**

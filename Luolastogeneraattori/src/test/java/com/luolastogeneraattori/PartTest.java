@@ -117,9 +117,4 @@ public class PartTest {
     public void testGetHallway(){
         assertTrue(this.root.getHallway()==null);
     }
-    
-    @Test
-    public void testToString(){
-        assertTrue(this.root.toString().equals("0 - 40, 0 - 40"));
-    }
 }

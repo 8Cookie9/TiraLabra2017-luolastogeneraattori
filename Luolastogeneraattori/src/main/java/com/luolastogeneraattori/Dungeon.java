@@ -20,7 +20,7 @@ public class Dungeon {
     public Dungeon(int width, int height){
         this.width = width;
         this.height = height;
-        this.maxsize = Math.min(this.height, this.width)/4;
+        this.maxsize = Math.min(this.height, this.width)/2;
         this.minsize=6;
         this.parts = new List<>();
         this.random = new Random();

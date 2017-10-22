@@ -132,16 +132,25 @@ public class Part {
                 this.createHallway(this.left().getRoom(), this.right().getRoom());
             }
         }else{
-            int roomWidth=this.random.newInt(3, this.width-2);
-            int roomHeight=this.random.newInt(3, this.height-2);
-            int roomX=this.x+this.random.newInt(1, this.width-roomWidth-1);
-            int roomY=this.y+this.random.newInt(1, this.height-roomHeight-1);
-            this.room=new Room(roomX, roomY, roomWidth, roomHeight);
+            this.createRoom();
         }
+    }
+    
+    
+    /**
+     * Luo huoneen tähän osaan, huone ei saa koskea reunoja.
+     */
+    private void createRoom(){
+        int roomWidth=this.random.newInt(this.minSize, this.width-2);
+        int roomHeight=this.random.newInt(this.minSize, this.height-2);
+        int roomX=this.x+this.random.newInt(1, this.width-roomWidth-1);
+        int roomY=this.y+this.random.newInt(1, this.height-roomHeight-1);
+        this.room=new Room(roomX, roomY, roomWidth, roomHeight);
     }
 
     /**
-     * 
+     * Jossa tässä osassa on huone, palautetaan se, jos ei, yritetään löytää huone tämän osan lapsista (left() ja right())
+     * jos näistäkään ei löydy huonetta
      * @return Palauttaa huoneen Room tästä osasta tai lähimmästä josta löytyy sellainen (palauttaa null jos huonetta ei löydy)
      */
     public Room getRoom(){
@@ -174,8 +183,6 @@ public class Part {
     
     /**
      * Tekee Room olioista koostuvan käytävän parametreinä annettujen huoneiden välille
-     * Metodi käy läpi erilaiset vaihtoehdot huoneiden sijainnista toisiinsa nähden
-     * ja tekee yhdestä tai kahdesta Room-oliosta muodostuvan käytävän niiden välille.
      * @param leftRoom
      * @param rightRoom 
      */
@@ -185,40 +192,51 @@ public class Part {
         int leftY=this.random.newInt(leftRoom.getY()+1, leftRoom.getY()+leftRoom.getHeight()-2);
         int rightX=this.random.newInt(rightRoom.getX()+1, rightRoom.getX()+rightRoom.getWidth()-2);
         int rightY=this.random.newInt(rightRoom.getY()+1, rightRoom.getY()+rightRoom.getHeight()-2);
+        
+    }
+    
+    /**
+     * Metodi käy läpi erilaiset vaihtoehdot huoneiden sijainnista toisiinsa nähden
+     * ja muodostaa listan joka sisältää 1 tai 2 hunetta, jotka muodostavat käytävän huoneiden
+     * välille. Käytävien muoto valitaan satunnaisesti rnd muuttujan arvon perusteella.
+     * @param leftX Huoneen 1 käytävän x-koordinaatti
+     * @param leftY Huoneen 1 käytävän y-koordinaatti
+     * @param rightX Huoneen 2 käytävän x-koordinaatti
+     * @param rightY Huoneen 2 käytävän y-koordinaatti
+     * @return Lista jossa on 1 tai 2 Room-oliota, muodostavat yhdessä käytävän.
+     */
+    private List<Room> getHallways(int leftX, int leftY, int rightX, int rightY){
+        List<Room> list = new List<>();
         int xDifference=rightX-leftX;
         int yDifference=rightY-leftY;
         boolean rnd=this.random.newBoolean(50);
          if(xDifference < 0){
             if(yDifference < 0){
-                this.hallway.add(new Room(rightX, (rnd ? leftY : rightY), Math.abs(xDifference), 1));
-                this.hallway.add(new Room((rnd ? rightX : leftX), rightY, 1, Math.abs(yDifference)));
+                list.add(new Room(rightX, (rnd ? leftY : rightY), Math.abs(xDifference), 1));
+                list.add(new Room((rnd ? rightX : leftX), rightY, 1, Math.abs(yDifference)));
             }else if(yDifference > 0){
-                this.hallway.add(new Room(rightX, (rnd ? leftY : rightY), (rnd ? Math.abs(xDifference) : (Math.abs(xDifference)+1)), 1));
-                this.hallway.add(new Room((rnd ? rightX : leftX), leftY, 1, Math.abs(yDifference)));
+                list.add(new Room(rightX, (rnd ? leftY : rightY), (rnd ? Math.abs(xDifference) : (Math.abs(xDifference)+1)), 1));
+                list.add(new Room((rnd ? rightX : leftX), leftY, 1, Math.abs(yDifference)));
             }else{
-                this.hallway.add(new Room(rightX, rightY, Math.abs(xDifference), 1));
+                list.add(new Room(rightX, rightY, Math.abs(xDifference), 1));
             }
         }else if(xDifference > 0){
             if(yDifference < 0){
-                this.hallway.add(new Room(leftX, (rnd ? rightY : leftY), (rnd ? Math.abs(xDifference) : (Math.abs(xDifference)+1)), 1));
-                this.hallway.add(new Room((rnd ? leftX : rightX), rightY, 1, Math.abs(yDifference)));
+                list.add(new Room(leftX, (rnd ? rightY : leftY), (rnd ? Math.abs(xDifference) : (Math.abs(xDifference)+1)), 1));
+                list.add(new Room((rnd ? leftX : rightX), rightY, 1, Math.abs(yDifference)));
             }else if(yDifference > 0){
-                this.hallway.add(new Room(leftX, (rnd ? leftY : rightY), Math.abs(xDifference), 1));
-                this.hallway.add(new Room((rnd ? rightX : leftX), leftY, 1, Math.abs(yDifference)));
+                list.add(new Room(leftX, (rnd ? leftY : rightY), Math.abs(xDifference), 1));
+                list.add(new Room((rnd ? rightX : leftX), leftY, 1, Math.abs(yDifference)));
             }else{
-                this.hallway.add(new Room(leftX, leftY, Math.abs(xDifference), 1));
+                list.add(new Room(leftX, leftY, Math.abs(xDifference), 1));
             }
         }else{
             if(yDifference < 0){
-                this.hallway.add(new Room(rightX, rightY, 1, Math.abs(yDifference)));
+                list.add(new Room(rightX, rightY, 1, Math.abs(yDifference)));
             }else{
-                this.hallway.add(new Room(leftX, leftY, 1, Math.abs(yDifference)));
+                list.add(new Room(leftX, leftY, 1, Math.abs(yDifference)));
             }
         }
-    }
-    
-    @Override
-    public String toString(){
-        return this.x+" - "+(this.x+this.width)+", "+this.y+" - "+(this.y+this.height);
+         return list;
     }
 }
